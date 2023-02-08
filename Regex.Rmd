@@ -1,0 +1,50 @@
+---
+title: "Regex"
+author: "Qiuhan Zhang"
+date: "2023-02-08"
+output: html_document
+---
+[My Github repository](https://github.com/qiuhan1008/BIOL432_Assignment_5.git)
+
+
+```{r}
+#import measurement dataset
+MData <- read.csv("measurements.csv")
+```
+
+```{r}
+#load library
+library(dplyr)
+#use the function mutate() create new column, gsub() to shortens the letters after capital letters
+MData <- MData %>%
+  mutate(Sp = gsub("([A-Z]).* (.*)", "\\1. \\2", organism))
+```
+
+
+```{r}
+#inspect data
+str(MData)
+head(MData)
+#View(MData)
+```
+```{r}
+#create new dataset
+NewData <- MData %>%
+  select(Sp, Limb_width, Limb_length, limb_volume, Observer)
+NewData
+```
+
+```{r}
+#inspect data
+str(NewData)
+head(NewData)
+#View(NewData)
+```
+
+```{r}
+#save as csv file
+write.csv(NewData, "MeasShort.csv")
+```
+
+
+
